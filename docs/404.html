@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting</title>
+  </head>
+  <body>
+    <script>
+      (function () {
+        var path = window.location.pathname;
+        var searchParams = new URLSearchParams(window.location.search);
+
+        if (/\/obs\/?$/.test(path)) {
+          path = path.replace(/\/obs\/?$/, '/');
+          searchParams.set('overlay', 'obs');
+        } else {
+          path = path.replace(/[^/]*$/, '');
+        }
+
+        var query = searchParams.toString();
+        window.location.replace(window.location.origin + path + (query ? '?' + query : '') + window.location.hash);
+      })();
+    </script>
+  </body>
+</html>
